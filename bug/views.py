@@ -1,18 +1,14 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from .models import person
 import pymysql
 from .forms import db_form,db_aggreagtion
-from django.db.models import Sum
+
 data = person.objects.all()
 
 def index(request):
-    context = {
-        'model_data': data,
-    }
 
-    
-    return render(request, 'index.html', context)
+    return render(request, 'index.html')
 
 
 def conn_db(request):
@@ -23,9 +19,13 @@ def conn_db(request):
     database='bugsmash',
     port=25060
 )
-
+    table_data = list(data.values())
+    context = {
+        'model_data': table_data,
+        'db_response':'The db is not connected'
+    }
     if connection:
-        return HttpResponse('The server did not connect')
+        return render(request,"index.html",context)
 
 def select(request):
     if request.method == "POST":

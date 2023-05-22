@@ -1,56 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <table>
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+  
+
+{% if db_response %}
+
+<script>
+
+    alert('{{ db_response }}');
+  </script>
+  
+  {% else %}
+  <a href="{% url 'home' %}" class="btn btn-primary custom-button">Click me</a>
+{% endif %}
+ 
+  
+    <table id="my-table">
         <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Phone</th>
-            <th>Gender</th>
-            <th>Email</th>
-          </tr>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone</th>
+                <th>Gender</th>
+                <th>Email</th>
+            </tr>
         </thead>
         <tbody>
-          {% for item in model_data %}
+            {% for item in model_data %}
             <tr>
-              <td>{{ item.first_name }}</td>
-              <td>{{ item.first_name }}</td>
-              <td>{{ item.phone }}</td>
-              <td>{{ item.gender }}</td>
-              <td>{{ item.email }}</td>
+                <td>{{ item.first_name }}</td>
+                <td>{{ item.first_name}}</td>
+                <td>{{ item.phone }}</td>
+                <td>{{ item.gender }}</td>
+                <td>{{ item.email }}</td>
             </tr>
-          {% endfor %}
+            {% endfor %}
         </tbody>
-      </table>
-      <button id="my-button">Click Me</button>
+    </table>
+    
 
+{% endblock %}
 
-
-      
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-  $('#my-button').click(function() {
-    $.ajax({
-      url: '/button-click/',  
-      type: 'GET',             
-      success: function(response) {
-        console.log(response); 
-      },
-      error: function(xhr, errmsg, err) {
-        console.log(xhr.status + ': ' + xhr.responseText); 
-      }
-    });
-  });
-});
-</script>
-
-</body>
-</html>
+{% block extrascripts %}
+    {{ block.super }}
+{% endblock %}
