@@ -37,7 +37,7 @@ def select(request):
                 field_values = person.objects.values(column_name).all()
                 print(field_values.values())
             except Exception as e:
-                return HttpResponse(str(e))
+                return render(request,"db_form.html",{"error":str(e)})
             return render(request, 'db_form.html', {'field_values': field_values,'col':column_name})
 
       
