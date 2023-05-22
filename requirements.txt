@@ -2,5 +2,5 @@
 Django==3.2.18
 
 PyMySQL==1.0.3
-myslclient
+mysqlclient
 gunicorn
